@@ -4,6 +4,7 @@ from sdv.single_table import GaussianCopulaSynthesizer
 from sdv.metadata import SingleTableMetadata
 from sdv.datasets.local import load_csvs
 from sdv.evaluation.single_table import evaluate_quality
+from sdv.evaluation.single_table import run_diagnostic
 import pandas as pd
 
 #Carregando o dataset dataset preparado (Data Wrangling)
@@ -25,7 +26,7 @@ synthesizer.fit(dataset)
 # pois customer_satisfation_rating no dataset sintético está com valores constantes NA e 3
 # reslution, fist_response_time e time_to_resolution com valor não esperados nan
 synth_data = synthesizer.sample(num_rows=20000,
-                                output_file_path='dataset/synthetic/customer_support_tickets-v3.csv')
+                                output_file_path='dataset/synthetic/customer_support_tickets-v5.csv')
 
 #Salvando o synthesizer treinado para uso posterior
 #TODO: Use git commit short sha
@@ -37,3 +38,13 @@ report = evaluate_quality(
     synthetic_data=synth_data,
     metadata=metadata
 )
+
+report.save("output/synthetic-data-quality-report")
+
+diagnostic_report = run_diagnostic(
+    real_data=dataset,
+    synthetic_data=synth_data,
+    metadata=metadata
+)
+
+diagnostic_report.get_results()
