@@ -37,3 +37,5 @@ When using pipenv, avoid to manually changing both **Pipfile** and **Pipfile.loc
 dependencies.
 
 ### Generating Synthetic data
+1. Run **synthetic-metadata.py**
+2. Run **synthetic-data-modeling.py**
