@@ -37,5 +37,8 @@ When using pipenv, avoid to manually changing both **Pipfile** and **Pipfile.loc
 dependencies.
 
 ### Generating Synthetic data
-1. Run **synthetic-metadata.py**
-2. Run **synthetic-data-modeling.py**
+Due to Github LFS limitations for my user account 
+1. Get the raw dataset from https://drive.google.com/file/d/1IZRzR-9-S9taKQTM2sPQqzK8Jhy3V6YK/view?usp=sharing
+2. Put the file in the **datasets/raw** folder
+3. Run **synthetic-metadata.py**
+4. Run **synthetic-data-modeling.py**

@@ -25,14 +25,12 @@ synthesizer = GaussianCopulaSynthesizer(metadata)
 synthesizer.fit(dataset)
 
 # Gerando os dado ssintéticos
-# TODO: Verificar o dataset original para Data Wrangling
 # pois customer_satisfation_rating no dataset sintético está com valores constantes NA e 3
 # reslution, fist_response_time e time_to_resolution com valor não esperados nan
 synth_data = synthesizer.sample(num_rows=20000,
                                 output_file_path='dataset/synthetic/customer_support_tickets.csv')
 
 # Salvando o synthesizer treinado para uso posterior
-# TODO: Use git commit short sha
 synthesizer.save(filepath='output/syntesizer-v1.pkl')
 
 # Avaliando a qualidade dos dado ssintéticos
