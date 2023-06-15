@@ -1,20 +1,31 @@
 # SingleTable Synthetic metadata
 # Author: Marcelo Pires <marcelopires@usp.br>
 
+import os
+
+# Recebe variáveis de ambiente para parametrizarmos o script.
+METADATA_FILE=os.getenv('METADATA_PATH')
+DATASET_FOLDER=os.getenv('DATASET_FOLDER_PATH')
+DATASET_NAME=os.getenv('DATASET_NAME')
+DATASET_FILE_NAME=os.getenv('DATASET_FILE_NAME')
+
 # Importar a biblioteca do sdv para carregar o dataset real que servirá de base
 # Esse dataset é usado para o sdv capturar o comportamento do dataset
 from sdv.datasets.local import load_csvs
+
 # Importar a biblioteca para gerar os metadados referentes as variáveis do dataset de base
 # de modo que o sdv possa syntetizar corretamente nossos dados
 from sdv.metadata import SingleTableMetadata
 
-dataset  = load_csvs(folder_name="dataset/raw/")
+metadata = SingleTableMetadata()
+
+
+dataset = load_csvs(folder_name="dataset/raw/")
 support_ticket = dataset["customer_support_tickets_processed"]
 
 # Gerar os metadados para dataset base. Usando o auto detect
 # O objet metadata terá uma propriedade `columns` onde podemos conferir, se as variáveis
 # foram corretamente identificados
-
 metadata.detect_from_csv(filepath="dataset/raw/customer_support_tickets_processed.csv")
 
 # Atualizando o tipo da coluna, caso contrário teremos o erro
@@ -33,4 +44,4 @@ metadata_dict = metadata.to_dict()
 metadata.validate()
 
 # Salvando o arquivo de metadados
-metadata.save_to_json(filepath='./synthetic-dataset-metadata.json')
+metadata.save_to_json(filepath=METADATA_FILE)
